@@ -1,5 +1,22 @@
 pragma solidity ^0.4.17;
 
+contract CampaignFactory {
+    address[] public deployedCampaigns;
+    
+    function createCampaign(uint minimum) public {
+        // syntax for calling another contract's constructor
+        // msg.sender is the user using this factory to deploy
+        // a new campaign.
+        address newCampaign = new InventorCampaign(minimum, msg.sender);
+        deployedCampaigns.push(newCampaign);
+    }
+    
+    function getAllDeployedCampaigns() public view returns (address[]) {
+        return deployedCampaigns;
+    }
+}
+
+
 contract InventorCampaign {
 
     // the owner of this contract and the respective
@@ -24,8 +41,9 @@ contract InventorCampaign {
         // numbner of approvals we got for a payment createRequest
         uint approvalCount;
     }
-    function InventorCampaign(uint _minimumContribution) public {
-        manager = msg.sender;
+    
+    function InventorCampaign(uint _minimumContribution, address _creator) public {
+        manager = _creator;
         minimumContribution = _minimumContribution;
     }
 
