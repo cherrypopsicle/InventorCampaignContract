@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mkhoury93/InventorCampaignContract#readme",
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.2.3",
     "fs-extra": "^9.1.0",
     "ganache-cli": "^6.12.2",
     "mocha": "^8.3.1",
