@@ -31,4 +31,4 @@ const deploy = async () => {
 deploy();
 
 
-// addres of contract: 0x9fa9a180043d3C39142EB4FD4255Ee554E7E2495
+// addres of contract: 0x9fa9a180043d3C39142EB4FD4255Ee554E7E2495 
