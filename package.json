@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next dev"
+    "test": "mocha",
+    "dev": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "ganache-cli": "^6.12.2",
     "mocha": "^8.3.1",
     "next": "^10.0.8",
+    "next-routes": "^1.4.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "solc": "^0.7.4",
