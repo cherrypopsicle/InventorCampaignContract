@@ -47,7 +47,7 @@ const CampaignIndex = ({ campaigns }) => {
       {/* this gets passed as a child of the Layout.props */}
       <Grid container>
         <Grid item xs={12}>
-          <Typography variant="h3" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             List of campaigns
           </Typography>
         </Grid>
