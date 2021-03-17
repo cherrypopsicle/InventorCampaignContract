@@ -1,12 +1,15 @@
-import { Button, Typography } from "@material-ui/core";
+import {
+  Button,
+  Typography,
+  TextField,
+  InputAdornment,
+  CircularProgress,
+} from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import Layout from "../../components/Layout";
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import factory from "../../ethereum/factory";
 import web3 from "../../ethereum/web3";
-import Alert from "@material-ui/lab/Alert";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Link allows us to import anker tags while the Router object allows
 // us to navigate users from one page to another
