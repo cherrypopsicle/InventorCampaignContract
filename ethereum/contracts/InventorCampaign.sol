@@ -8,11 +8,16 @@ contract CampaignFactory {
         // syntax for calling another contract's constructor
         // msg.sender is the user using this factory to deploy
         // a new campaign.
-        InventorCampaign newCampaign = new InventorCampaign(minimum, msg.sender);
+        InventorCampaign newCampaign =
+            new InventorCampaign(minimum, msg.sender);
         deployedCampaigns.push(newCampaign);
     }
 
-    function getAllDeployedCampaigns() public view returns (InventorCampaign[] memory) {
+    function getAllDeployedCampaigns()
+        public
+        view
+        returns (InventorCampaign[] memory)
+    {
         return deployedCampaigns;
     }
 }
@@ -26,6 +31,7 @@ contract InventorCampaign {
     mapping(uint256 => Request) public requests;
     uint256 public approversCount;
     uint256 public requestIndex;
+    uint256 totalRequests = 0;
 
     struct Request {
         // why is this request being created?
@@ -69,20 +75,15 @@ contract InventorCampaign {
         uint256 _value,
         address payable _recipient
     ) public restricted {
-        // Request storage newRequest =
-        //     Request({
-        //         description: _description,
-        //         value: _value,
-        //         recipient: _recipient,
-        //         complete: false,
-        //         approvalCount: 0
-        //     });
         Request storage newRequest = requests[requestIndex++];
         newRequest.description = _description;
         newRequest.value = _value;
         newRequest.recipient = _recipient;
         newRequest.complete = false;
         newRequest.approvalCount = 0;
+
+        // increment the total number of requests
+        totalRequests++;
     }
 
     function approveRequest(uint256 index) public isApprover {
@@ -105,5 +106,29 @@ contract InventorCampaign {
         require(request.complete == false);
         request.recipient.transfer(request.value);
         request.complete = true;
+    }
+
+    function getSummary()
+        public
+        view
+        returns (
+            uint256,
+            uint256,
+            uint256,
+            uint256,
+            address
+        )
+    {
+        return (
+            minimumContribution,
+            address(this).balance,
+            totalRequests,
+            approversCount,
+            manager
+        );
+    }
+
+    function getRequestsCount() public view returns (uint256) {
+        return totalRequests;
     }
 }

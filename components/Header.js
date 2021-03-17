@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Grid from "@material-ui/core/Grid";
+import { Link } from "../routes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,16 +24,18 @@ export default (props) => {
   const classes = useStyles();
   return (
     <AppBar style={{ marginTop: "10px" }} position="static">
-      <Toolbar style={{maxWidth: "100%"}}>
+      <Toolbar style={{ maxWidth: "100%" }}>
         <Grid container>
           <Grid item xs={10}>
             <Typography variant="h6" className={classes.title}>
-              FundCoin
+              <Link route="/">FundCoin</Link>
             </Typography>
           </Grid>
           <Grid item xs={2}>
             <Button color="inherit">
-              <AddCircleIcon />{" "}
+              <Link route="/campaigns/new">
+                <AddCircleIcon></AddCircleIcon>
+              </Link>
             </Button>
           </Grid>
         </Grid>

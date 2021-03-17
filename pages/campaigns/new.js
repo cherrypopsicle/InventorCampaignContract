@@ -8,6 +8,10 @@ import web3 from "../../ethereum/web3";
 import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+// Link allows us to import anker tags while the Router object allows
+// us to navigate users from one page to another
+import { Link, Router } from "../../routes";
+
 const newCampaign = () => {
   // minimum contribtution to use
   const [minimumContribution, setContribution] = useState("");
@@ -19,14 +23,16 @@ const newCampaign = () => {
     setError("");
     // all the accounts from our connected ETH provider
     try {
+      // get the first account ..
       const accounts = await web3.eth.getAccounts();
       event.preventDefault();
+      // .. create the first campaign ..
       await factory.methods
         .createCampaign(minimumContribution)
-        .send({ from: accounts[0] })
-        .then(() => {
-          setError("");
-        });
+        .send({ from: accounts[0] });
+      setError("");
+      // .. then navigate back to the main page when it's successful
+      Router.pushRoute("/");
     } catch (error) {
       setError(error.message);
     }
