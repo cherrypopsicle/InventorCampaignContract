@@ -8,7 +8,6 @@ const web3 = new Web3(ganacheProvider);
 const fs = require("fs");
 // path finder
 const path = require("path");
-const { CancelPresentationOutlined } = require("@material-ui/icons");
 const campaignFactoryPath = path.resolve(
   __dirname,
   "..",
@@ -125,7 +124,7 @@ describe("Campaigns", () => {
     });
 
     let balance = await web3.eth.getBalance(accounts[1]);
-    balance =  web3.utils.fromWei(balance, "ether");
+    balance = web3.utils.fromWei(balance, "ether");
     balance = parseFloat(balance);
     assert(balance > 104);
   });

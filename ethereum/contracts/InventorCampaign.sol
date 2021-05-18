@@ -1,6 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.4;
 
+/**
+    @title: CampaignFactory
+    @author: Memo Khoury
+    @dev: A factory contract that creates multiple campagins. 
+    There are no managers since anyone can create a campaign.
+    Like, for instance, Kickstarter.
+
+ */
 contract CampaignFactory {
     InventorCampaign[] public deployedCampaigns;
 
@@ -22,6 +30,27 @@ contract CampaignFactory {
     }
 }
 
+
+/**
+    @title: InventorCampaign
+    @author: Memo Khoury
+    @dev: The inventor campaign contract is meant to solve
+    the Kickstarter problem where campaign managers run away with
+    funds. Here, if one person contributes more than the minimum
+    contribution required for the campaign, then they are added as 
+    an approver of requests. Each approver is given one vote for each
+    requests for funds.
+
+    Only the manager of the campaign (created from the factory) is allowed
+    to create requests. Requests are ideally requests for funds, where the
+    manager writes a description of where the funds will go. For example,
+    a campaign for creating a new building will typically have a request
+    for building equipment. Once a request is created, all the approvers in
+    the campaign can vote. If the majority of the vote is in the request,
+    the manager can approve the request and the funds can be deposited
+    in the wallet of the vendor. 
+
+ */
 contract InventorCampaign {
     // the owner of this contract and the respective
     // crowdfunding campaign

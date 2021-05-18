@@ -6,7 +6,7 @@ import Head from "next/head";
 export default (props) => {
   return (
     <Container>
-      {" "}
+      {" "} 
       <Head>
         <link
           rel="stylesheet"
