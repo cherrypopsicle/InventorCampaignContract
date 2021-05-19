@@ -30,7 +30,6 @@ contract CampaignFactory {
     }
 }
 
-
 /**
     @title: InventorCampaign
     @author: Memo Khoury
@@ -60,7 +59,7 @@ contract InventorCampaign {
     mapping(uint256 => Request) public requests;
     uint256 public approversCount;
     uint256 public requestIndex;
-    uint256 totalRequests = 0;
+    uint256 totalRequests;
 
     struct Request {
         // why is this request being created?
@@ -104,6 +103,9 @@ contract InventorCampaign {
         uint256 _value,
         address payable _recipient
     ) public restricted {
+        uint256 index = requestIndex;
+        index = index + 1;
+        requestIndex = index;
         Request storage newRequest = requests[requestIndex++];
         newRequest.description = _description;
         newRequest.value = _value;
@@ -112,7 +114,9 @@ contract InventorCampaign {
         newRequest.approvalCount = 0;
 
         // increment the total number of requests
-        totalRequests++;
+        uint requests = totalRequests;
+        requests = requests + 1;
+        totalRequests = requests;
     }
 
     function approveRequest(uint256 index) public isApprover {
@@ -125,7 +129,10 @@ contract InventorCampaign {
         // vote.
         require(request.approvals[msg.sender] == false);
         request.approvals[msg.sender] = true;
-        request.approvalCount++;
+
+        uint approvalCount = request.approvalCount;
+        approvalCount = approvalCount + 1;
+        request.approvalCount = approvalCount;
     }
 
     function finalizeRequest(uint256 index) public restricted {
@@ -133,8 +140,8 @@ contract InventorCampaign {
         // first, we check if the request has NOT been completed
         require(request.approvalCount > (approversCount / 2));
         require(request.complete == false);
-        request.recipient.transfer(request.value);
         request.complete = true;
+        request.recipient.transfer(request.value);
     }
 
     function getSummary()
